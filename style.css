@@ -1,7 +1,14 @@
 :root {
---primary:#00ebff;--secondary:#141414;--dark:#121212;--light:#141414;--gray:#343a40;
-    --success:#28a745;--warning:#ffc107;--danger:#dc3545;--card-shadow:0 4px 12px rgba(0,0,0,.15);
-    --transition:all .3s ease;
+    --primary: #00ebff;        /* Cyan - Brand color for buttons/tabs */
+    --secondary: #1e1e1e;      /* Dark gray - Secondary backgrounds */
+    --dark: #121212;           /* Pure dark gray - Main BG/header/footer */
+    --light: #e0e0e0;          /* Light gray - Text on dark BG */
+    --gray: #4a4a4a;           /* Medium gray - Borders/inputs */
+    --success: #00ff88;        /* Cyan-green - Download buttons */
+    --warning: #ffd700;        /* Gold - Stars/warnings */
+    --danger: #ff4757;         /* Red - Delete/close */
+    --card-shadow: 0 4px 20px rgba(0, 235, 255, 0.1);  /* Cyan-tinted shadow */
+    --transition: all .3s ease; /* Smooth hovers */
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:var(--light);min-height:100vh;line-height:1.6}
@@ -123,6 +130,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
