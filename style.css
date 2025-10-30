@@ -26,7 +26,7 @@ header{background:rgba(18,18,18,.95);backdrop-filter:blur(10px);position:fixed;w
 .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--primary);transition:var(--transition)}
 .nav-links a:hover::after{width:100%}
 .admin-btn{background:var(--primary);color:#fff;border:none;padding:.6rem 1.2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-block}
-.admin-btn:hover{background:#00E6E2;transform:translateY(-2px)}
+.admin-btn:hover{background:#fff;transform:translateY(-2px)}
 
 /* Hero */
 .hero{padding:120px 0 80px;text-align:center}
@@ -130,6 +130,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
