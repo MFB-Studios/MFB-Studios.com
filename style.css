@@ -6,7 +6,7 @@
     --gray: #4a4a4a;           /* Medium gray - Borders/inputs */
     --success: #00ff88;        /* Cyan-green - Download buttons */
     --warning: #ffd700;        /* Gold - Stars/warnings */
-    --danger: #ff4757;         /* Red - Delete/close */
+    --danger: #141414;         /* Red - Delete/close */
     --card-shadow: 0 4px 20px rgba(0, 235, 255, 0.1);  /* Cyan-tinted shadow */
     --transition: all .3s ease; /* Smooth hovers */
 }
@@ -130,6 +130,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
