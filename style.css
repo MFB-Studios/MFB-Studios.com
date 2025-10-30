@@ -1,5 +1,5 @@
 :root{
-    --primary:#00ebff;--secondary:#141414;--dark:#121212;--light:#f8f9fa;--gray:#343a40;
+    --primary:#00ebff;--secondary:#141414;--dark:#121212;--light:#141414;--gray:#343a40;
     --success:#28a745;--warning:#ffc107;--danger:#dc3545;--card-shadow:0 4px 12px rgba(0,0,0,.15);
     --transition:all .3s ease;
 }
@@ -123,4 +123,5 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
