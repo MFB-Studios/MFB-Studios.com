@@ -55,7 +55,7 @@ header{background:rgba(18,18,18,.95);backdrop-filter:blur(10px);position:fixed;w
 .mod-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-size:.85rem;opacity:.7}
 .rating{display:flex;align-items:center}
 .stars{color:#ffc107;margin-right:5px}
-.mod-btn{background:var(--primary);color:#fff;border:none;padding:.7rem 1.2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:var(--transition);width:100%;font-size:1rem}
+.mod-btn{background:var(--primary);color:#000000;border:none;padding:.7rem 1.2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:var(--transition);width:100%;font-size:1rem}
 .mod-btn:hover{background:#00E6E2;transform:translateY(-2px)}
 
 /* Mod Detail */
@@ -130,6 +130,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
