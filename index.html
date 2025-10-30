@@ -4,152 +4,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MFB Studios - Minecraft Mods Hub</title>
-    <meta name="description" content="Download Minecraft Java & Bedrock/Pocket Edition mods from MFB Studios.">
+    <meta name="description" content="Download Minecraft Java & Bedrock/Pocket Edition mods from MFB Studios - Official mod hub for Mine Fire Bro YouTube channel.">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<!-- Header -->
-<header>
-    <div class="container">
-        <nav class="navbar">
-            <a href="#" class="logo"><i class="fas fa-cube"></i> MFB Studios</a>
-            <ul class="nav-links">
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#" onclick="showTab('java')">Java Edition</a></li>
-                <li><a href="#" onclick="showTab('bedrock')">Bedrock/PE</a></li>
-                <li><a href="#" onclick="openAdmin()">Admin</a></li>
-            </ul>
-            <a href="#" class="admin-btn" onclick="openAdmin()">Admin Panel</a>
-        </nav>
-    </div>
-</header>
-
-<!-- Main -->
-<main class="container">
-
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <h1>MFB Studios</h1>
-        <p>Official Minecraft Mods Hub for <strong>Mine Fire Bro</strong> YouTube Channel</p>
-        <p>Download high-quality, tested mods for Minecraft Java & Bedrock/Pocket Edition</p>
-
-        <div class="search-bar">
-            <input type="text" placeholder="Search mods..." id="searchInput">
-            <button onclick="searchMods()"><i class="fas fa-search"></i></button>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo"><i class="fas fa-cube"></i> MFB Studios</a>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#" onclick="showTab('java')">Java Edition</a></li>
+                    <li><a href="#" onclick="showTab('bedrock')">Bedrock/PE</a></li>
+                    <li><a href="#" onclick="openAdmin()">Admin</a></li>
+                </ul>
+                <a href="#" class="admin-btn" onclick="openAdmin()">Admin Panel</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('all')">All Mods</button>
-            <button class="tab-btn" onclick="showTab('java')">Java Edition</button>
-            <button class="tab-btn" onclick="showTab('bedrock')">Bedrock/PE</button>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h1>MFB Studios</h1>
+            <p>Official Minecraft Mods Hub for <strong>Mine Fire Bro</strong> YouTube Channel</p>
+            <p>Download high-quality, tested mods for Minecraft Java & Bedrock/Pocket Edition</p>
 
-    <!-- Mods Grid -->
-    <section id="modsSection">
-        <div class="mods-grid" id="modsGrid"></div>
-    </section>
+            <div class="search-bar">
+                <input type="text" placeholder="Search mods..." id="searchInput">
+                <button onclick="searchMods()"><i class="fas fa-search"></i></button>
+            </div>
 
-    <!-- Mod Detail -->
-    <section class="mod-detail" id="modDetail" style="display:none;">
-        <div class="detail-container">
-            <button class="back-btn" onclick="closeModDetail()"><i class="fas fa-arrow-left"></i> Back to Mods</button>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('all')">All Mods</button>
+                <button class="tab-btn" onclick="showTab('java')">Java Edition</button>
+                <button class="tab-btn" onclick="showTab('bedrock')">Bedrock/PE</button>
+            </div>
+        </section>
 
-            <div class="detail-header">
-                <div>
-                    <h2 class="detail-title" id="detailTitle"></h2>
-                    <p>by MFB Studios • <span id="detailDownloads">0</span> downloads</p>
+        <!-- Mods Grid -->
+        <section id="modsSection">
+            <div class="mods-grid" id="modsGrid"></div>
+        </section>
+
+        <!-- Mod Detail Page -->
+        <section class="mod-detail" id="modDetail">
+            <div class="detail-container">
+                <button class="back-btn" onclick="closeModDetail()"><i class="fas fa-arrow-left"></i> Back to Mods</button>
+
+                <div class="detail-header">
+                    <div>
+                        <h2 class="detail-title" id="detailTitle"></h2>
+                        <p>by MFB Studios • <span id="detailDownloads">0</span> downloads</p>
+                    </div>
+                    <span class="detail-version" id="detailVersion"></span>
                 </div>
-                <span class="detail-version" id="detailVersion"></span>
-            </div>
 
-            <div class="detail-info">
-                <div class="info-item"><div class="info-label">Category</div><div class="info-value" id="detailCategory"></div></div>
-                <div class="info-item"><div class="info-label">Last Updated</div><div class="info-value" id="detailUpdated"></div></div>
-                <div class="info-item"><div class="info-label">Minecraft Version</div><div class="info-value" id="detailMCVersion"></div></div>
-                <div class="info-item"><div class="info-label">Rating</div>
-                    <div class="info-value"><span class="stars" id="detailRating"></span> <span id="detailRatingValue"></span> (1,234 ratings)</div>
+                <div class="detail-info">
+                    <div class="info-item"><div class="info-label">Category</div><div class="info-value" id="detailCategory"></div></div>
+                    <div class="info-item"><div class="info-label">Last Updated</div><div class="info-value" id="detailUpdated"></div></div>
+                    <div class="info-item"><div class="info-label">Minecraft Version</div><div class="info-value" id="detailMCVersion"></div></div>
+                    <div class="info-item"><div class="info-label">Rating</div>
+                        <div class="info-value"><span class="stars" id="detailRating"></span> <span id="detailRatingValue"></span> (1,234 ratings)</div>
+                    </div>
+                </div>
+
+                <div class="detail-desc" id="detailDescription"></div>
+
+                <div class="screenshots" id="detailScreenshots"></div>
+
+                <div class="download-section">
+                    <h3>Download Now</h3>
+                    <p>Select your platform:</p>
+                    <div id="downloadButtons"></div>
+                    <p style="margin-top:1rem;opacity:.7;font-size:.9rem;">
+                        <i class="fas fa-info-circle"></i> All files are hosted on MediaFire • Virus scanned • No login required
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MFB Studios</h3>
+                    <p>Official mod hub for Mine Fire Bro YouTube Channel. Download safe, tested Minecraft mods.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Java Edition Mods</a></li>
+                        <li><a href="#">Bedrock/PE Addons</a></li>
+                        <li><a href="#">Installation Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Subscribe</h3>
+                    <p>Get notified about new mods!</p>
+                    <form>
+                        <input type="email" placeholder="Your email..." style="width:100%;padding:0.8rem;border-radius:8px;border:none;margin-bottom:0.5rem;">
+                        <button type="submit" class="btn-primary" style="width:100%;">Subscribe</button>
+                    </form>
                 </div>
             </div>
 
-            <div class="detail-desc" id="detailDescription"></div>
-
-            <div class="screenshots" id="detailScreenshots"></div>
-
-            <div class="download-section">
-                <h3>Download Now</h3>
-                <p>Select your platform:</p>
-                <div id="downloadButtons"></div>
-                <p style="margin-top:1rem;opacity:.7;font-size:.9rem;">
-                    <i class="fas fa-info-circle"></i> All files are hosted on MediaFire • Virus scanned • No login required
-                </p>
+            <div class="copyright">
+                © 2025 MFB Studios. All rights reserved. | Made with love for the Minecraft community
             </div>
         </div>
-    </section>
-</main>
+    </footer>
 
-<!-- Admin Panel -->
-<div class="admin-panel" id="adminPanel" style="display:none;">
-    <div class="container">
-        <div class="admin-container">
-            <div class="admin-header">
-                <h2 class="admin-title">Admin Panel - MFB Studios</h2>
-                <button class="close-admin" onclick="closeAdmin()">X</button>
-            </div>
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="container">
+            <div class="admin-container">
+                <div class="admin-header">
+                    <h2 class="admin-title">Admin Panel - MFB Studios</h2>
+                    <button class="close-admin" onclick="closeAdmin()">X</button>
+                </div>
 
-            <div class="admin-form">
-                <h3>Add New Mod</h3>
-                <form id="addModForm">
-                    <div class="form-row">
-                        <div class="form-group"><label>Mod Name</label><input type="text" id="modName" required></div>
-                        <div class="form-group"><label>Platform</label>
-                            <select id="modPlatform" required><option value="java">Java Edition</option><option value="bedrock">Bedrock/PE</option></select>
+                <div class="admin-form">
+                    <h3>Add New Mod</h3>
+                    <form id="addModForm">
+                        <div class="form-row">
+                            <div class="form-group"><label>Mod Name</label><input type="text" id="modName" required></div>
+                            <div class="form-group"><label>Platform</label>
+                                <select id="modPlatform" required>
+                                    <option value="java">Java Edition</option>
+                                    <option value="bedrock">Bedrock/PE</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group"><label>Minecraft Version</label><input type="text" id="modVersion" placeholder="e.g. 1.20.1" required></div>
-                        <div class="form-group"><label>Mod Version</label><input type="text" id="modModVersion" placeholder="e.g. v1.2.3" required></div>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Minecraft Version</label><input type="text" id="modVersion" placeholder="e.g. 1.21" required></div>
+                            <div class="form-group"><label>Mod Version</label><input type="text" id="modModVersion" placeholder="e.g. v1.0" required></div>
+                        </div>
 
-                    <div class="form-group"><label>Short Description (card)</label><textarea id="modShortDesc" maxlength="150" required></textarea></div>
-                    <div class="form-group"><label>Full Description (HTML allowed)</label><textarea id="modFullDesc" required></textarea></div>
+                        <div class="form-group"><label>Short Description (card)</label><textarea id="modShortDesc" maxlength="150" required></textarea></div>
+                        <div class="form-group"><label>Full Description (HTML allowed)</label><textarea id="modFullDesc" required></textarea></div>
 
-                    <div class="form-row">
-                        <div class="form-group"><label>Thumbnail URL (16:9)</label><input type="url" id="modThumbnail" required></div>
-                        <div class="form-group"><label>Category</label><input type="text" id="modCategory" required></div>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Thumbnail URL (16:9)</label><input type="url" id="modThumbnail" required></div>
+                            <div class="form-group"><label>Category</label><input type="text" id="modCategory" required></div>
+                        </div>
 
-                    <div class="form-group"><label>Screenshot URLs (comma separated)</label>
-                        <input type="text" id="modScreenshots" placeholder="https://...jpg, https://...jpg">
-                    </div>
+                        <div class="form-group"><label>Screenshot URLs (comma separated)</label>
+                            <input type="text" id="modScreenshots" placeholder="https://...jpg, https://...jpg">
+                        </div>
 
-                    <div class="form-row">
-                        <div class="form-group"><label>Java Download (MediaFire)</label><input type="url" id="modJavaLink"></div>
-                        <div class="form-group"><label>Bedrock Download (MediaFire)</label><input type="url" id="modBedrockLink"></div>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Java Download (MediaFire)</label><input type="url" id="modJavaLink"></div>
+                            <div class="form-group"><label>Bedrock Download (MediaFire)</label><input type="url" id="modBedrockLink"></div>
+                        </div>
 
-                    <button type="submit" class="btn-primary">Add Mod</button>
-                </form>
-            </div>
+                        <button type="submit" class="btn-primary">Add Mod</button>
+                    </form>
+                </div>
 
-            <div class="mod-list">
-                <h3>Existing Mods</h3>
-                <div id="existingMods"><p>No mods added yet.</p></div>
+                <div class="mod-list">
+                    <h3>Existing Mods</h3>
+                    <div id="existingMods"><p>No mods added yet.</p></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Screenshot Modal -->
-<div class="modal" id="screenshotModal" style="display:none;" onclick="closeModal()">
-    <span class="close-modal" onclick="closeModal()">X</span>
-    <img id="modalImage" src="" alt="Screenshot">
-</div>
+    <!-- Screenshot Modal -->
+    <div class="modal" id="screenshotModal" onclick="closeModal()">
+        <span class="close-modal" onclick="closeModal()">X</span>
+        <img id="modalImage" src="" alt="Screenshot">
+    </div>
 
-<script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
