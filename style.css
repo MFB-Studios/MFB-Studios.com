@@ -40,7 +40,13 @@ header{background:rgba(18,18,18,.95);backdrop-filter:blur(10px);position:fixed;w
 /* Tabs */
 .tabs{display:flex;justify-content:center;margin-bottom:3rem;flex-wrap:wrap}
 .tab-btn{background:rgba(255,255,255,.1);color:var(--light);border:none;padding:.8rem 2rem;margin:.5rem;border-radius:50px;cursor:pointer;font-weight:500;transition:var(--transition);backdrop-filter:blur(5px)}
-.tab-btn.active,.tab-btn:hover{background:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(233,30,99,.4)}
+.tab-btn.active,
+.tab-btn:hover {
+    background: var(--primary);           /* Cyan background */
+    color: #000 !important;               /* BLACK TEXT */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 235, 255, 0.4); /* CYAN GLOW */
+}
 
 /* Mod Cards */
 .mods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-bottom:4rem}
@@ -130,6 +136,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
