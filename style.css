@@ -2,7 +2,7 @@
     --primary: #00FFF9;        /* Cyan - Brand color for buttons/tabs */
     --secondary: #303030;      /* Dark gray - Secondary backgrounds */
     --dark: #121212;           /* Pure dark gray - Main BG/header/footer */
-    --light: #e0e0e0;          /* Light gray - Text on dark BG */
+    --light: #FFFFFF;          /* Light gray - Text on dark BG */
     --gray: #4a4a4a;           /* Medium gray - Borders/inputs */
     --success: #00ff88;        /* Cyan-green - Download buttons */
     --warning: #ffd700;        /* Gold - Stars/warnings */
@@ -130,6 +130,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
     .detail-info{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
 }
+
 
 
 
