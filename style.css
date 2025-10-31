@@ -117,11 +117,13 @@ header {
 /* tabs – centered, wrap nicely */
 .tabs {
     display: flex;
-    justify-content: center;      /* <-- centre on every screen */
+    /* justify-content: center; */   /* remove this line */
+    justify-content: flex-start;     /* align to left */
     gap: .5rem;
     margin-bottom: 3rem;
     flex-wrap: wrap;
 }
+
 .tab-btn {
     background: rgba(255,255,255,.1);
     color: var(--light);
@@ -321,4 +323,5 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
             width:48px;height:48px;border-radius:50%;display:flex;align-items:center;
             justify-content:center;cursor:pointer;z-index:1500;transition:var(--transition)}
 .dark-toggle:hover{background:#00E6E2}
+
 
