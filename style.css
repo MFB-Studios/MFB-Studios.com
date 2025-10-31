@@ -33,6 +33,7 @@ body {
 
 /* === UPDATED NAVBAR STYLES === */
 
+/* ==== NAVBAR ==== */
 header {
     position: fixed;
     top: 0;
@@ -45,47 +46,45 @@ header {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;   /* logo left – right-actions right */
     align-items: center;
     padding: 0.6rem 1.2rem;
-    flex-wrap: nowrap;
 }
 
+/* LOGO */
 .logo {
     color: #00dfeb;
     font-size: 1.4rem;
-    font-weight: 700;
     text-decoration: none;
     display: flex;
     align-items: center;
 }
 
-/* Right side: Search icon + Admin button */
+/* RIGHT GROUP */
 .right-actions {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.8rem;               /* space between search & admin */
 }
 
-/* Search Icon */
+/* SEARCH ICON */
 .search-icon {
     color: #fff;
     font-size: 1.1rem;
     cursor: pointer;
     padding: 0.4rem;
     border-radius: 50%;
-    transition: 0.2s ease;
+    transition: background 0.2s, color 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .search-icon:hover {
     background: #00dfeb22;
     color: #00dfeb;
 }
 
-/* Admin button */
+/* ADMIN BUTTON */
 .admin-btn {
     background: #00dfeb;
     color: #000;
@@ -93,24 +92,18 @@ header {
     padding: 0.4rem 0.9rem;
     border-radius: 20px;
     text-decoration: none;
-    transition: 0.2s ease;
+    transition: background 0.2s, transform 0.2s;
     white-space: nowrap;
 }
-
 .admin-btn:hover {
     background: #00ffff;
     transform: translateY(-1px);
 }
 
-/* Prevent navbar height issues */
-.navbar * {
-    line-height: 1;
-}
+/* Keep navbar height tight */
+.navbar * { line-height: 1; }
 
-body {
-    padding-top: 60px; /* prevent content under fixed navbar */
-}
-
+body { padding-top: 60px; }   /* push content below fixed header */
 
 
 
@@ -865,6 +858,7 @@ footer {
 }
     
 }
+
 
 
 
