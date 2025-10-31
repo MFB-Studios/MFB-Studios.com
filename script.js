@@ -1,8 +1,14 @@
-/* MFB Studios – Mod Hub */
+/* MFB Studios – Mod Hub (Optimized for 5,000 mods) */
 
 // Admin password (CHANGE THIS to your desired password)
 const ADMIN_PASSWORD = 'mfbstudios2025';
 let isAdminLoggedIn = false;
+
+// Pagination settings
+const MODS_PER_PAGE = 12;
+let currentPage = 1;
+let currentFilter = 'all';
+let currentSearchQuery = '';
 
 // Default mods (fallback if localStorage is empty)
 const defaultMods = [
@@ -59,15 +65,17 @@ const defaultMods = [
 // Load mods from localStorage or use defaults
 let mods = loadMods();
 
-let currentFilter = 'all';
-
 /* ---------- LocalStorage Functions ---------- */
 function saveMods() {
     try {
         localStorage.setItem('mfbMods', JSON.stringify(mods));
-        console.log('Mods saved to localStorage');
+        console.log(`✅ ${mods.length} mods saved to localStorage`);
     } catch (error) {
-        console.error('Error saving mods:', error);
+        if (error.name === 'QuotaExceededError') {
+            alert('⚠️ Storage limit reached! Cannot save more mods. You have reached the maximum capacity.');
+        } else {
+            console.error('Error saving mods:', error);
+        }
     }
 }
 
@@ -75,46 +83,103 @@ function loadMods() {
     try {
         const saved = localStorage.getItem('mfbMods');
         if (saved) {
-            console.log('Loaded mods from localStorage');
-            return JSON.parse(saved);
+            const loadedMods = JSON.parse(saved);
+            console.log(`✅ Loaded ${loadedMods.length} mods from localStorage`);
+            return loadedMods;
         }
     } catch (error) {
         console.error('Error loading mods:', error);
     }
-    console.log('Using default mods');
+    console.log('📦 Using default mods');
     return [...defaultMods];
 }
 
 function resetMods() {
-    if (confirm('Reset all mods to default? This will delete all custom mods!')) {
+    if (confirm('⚠️ Reset all mods to default? This will delete all custom mods!')) {
         mods = [...defaultMods];
         saveMods();
+        currentPage = 1;
         renderMods();
         updateExistingModsList();
-        alert('Mods reset to default!');
+        alert('✅ Mods reset to default!');
     }
+}
+
+function exportMods() {
+    const dataStr = JSON.stringify(mods, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `mfb-mods-backup-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    alert('✅ Mods exported successfully!');
 }
 
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
     renderMods();
     updateExistingModsList();
+    updateModCount();
 });
 
 /* ---------- Tabs ---------- */
 function showTab(tab) {
     currentFilter = tab;
+    currentPage = 1;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
     renderMods();
 }
 
-/* ---------- Render Grid ---------- */
+/* ---------- Get Filtered Mods ---------- */
+function getFilteredMods() {
+    let filtered = mods;
+    
+    // Apply platform filter
+    if (currentFilter !== 'all') {
+        filtered = filtered.filter(m => m.platform === currentFilter);
+    }
+    
+    // Apply search filter
+    if (currentSearchQuery) {
+        const query = currentSearchQuery.toLowerCase();
+        filtered = filtered.filter(m => 
+            m.name.toLowerCase().includes(query) ||
+            m.shortDesc.toLowerCase().includes(query) ||
+            m.category.toLowerCase().includes(query)
+        );
+    }
+    
+    return filtered;
+}
+
+/* ---------- Render Grid with Pagination ---------- */
 function renderMods() {
     const grid = document.getElementById('modsGrid');
+    const filtered = getFilteredMods();
+    
+    // Calculate pagination
+    const totalPages = Math.ceil(filtered.length / MODS_PER_PAGE);
+    const startIndex = (currentPage - 1) * MODS_PER_PAGE;
+    const endIndex = startIndex + MODS_PER_PAGE;
+    const modsToShow = filtered.slice(startIndex, endIndex);
+    
+    // Clear grid
     grid.innerHTML = '';
-    const list = currentFilter === 'all' ? mods : mods.filter(m => m.platform === currentFilter);
-    list.forEach(m => grid.appendChild(createModCard(m)));
+    
+    // Render mods
+    if (modsToShow.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;grid-column:1/-1;font-size:1.2rem;opacity:0.7;padding:3rem;">No mods found. Try a different search or filter.</p>';
+    } else {
+        modsToShow.forEach(m => grid.appendChild(createModCard(m)));
+    }
+    
+    // Render pagination
+    renderPagination(totalPages, filtered.length);
+    
+    // Update mod count
+    updateModCount();
 }
 
 function createModCard(mod) {
@@ -123,7 +188,7 @@ function createModCard(mod) {
     card.onclick = () => openModDetail(mod.id);
     const stars = '★'.repeat(Math.floor(mod.rating)) + (mod.rating % 1 >= .5 ? '½' : '') + '☆'.repeat(5 - Math.ceil(mod.rating));
     card.innerHTML = `
-        <div class="mod-image"><img src="${mod.thumbnail}" alt="${mod.name}"></div>
+        <div class="mod-image"><img src="${mod.thumbnail}" alt="${mod.name}" loading="lazy"></div>
         <div class="mod-info">
             <h3 class="mod-title">${mod.name}</h3>
             <p class="mod-desc">${mod.shortDesc}</p>
@@ -136,12 +201,83 @@ function createModCard(mod) {
     return card;
 }
 
+/* ---------- Pagination ---------- */
+function renderPagination(totalPages, totalMods) {
+    let paginationHTML = document.getElementById('pagination');
+    
+    if (!paginationHTML) {
+        paginationHTML = document.createElement('div');
+        paginationHTML.id = 'pagination';
+        paginationHTML.className = 'pagination';
+        document.getElementById('modsSection').appendChild(paginationHTML);
+    }
+    
+    if (totalPages <= 1) {
+        paginationHTML.innerHTML = '';
+        return;
+    }
+    
+    let html = '<div class="pagination-container">';
+    html += `<div class="pagination-info">Showing ${((currentPage - 1) * MODS_PER_PAGE) + 1}-${Math.min(currentPage * MODS_PER_PAGE, totalMods)} of ${totalMods} mods</div>`;
+    html += '<div class="pagination-buttons">';
+    
+    // Previous button
+    if (currentPage > 1) {
+        html += `<button onclick="changePage(${currentPage - 1})" class="pagination-btn">← Previous</button>`;
+    }
+    
+    // Page numbers
+    const maxButtons = 7;
+    let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+    let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+    
+    if (endPage - startPage < maxButtons - 1) {
+        startPage = Math.max(1, endPage - maxButtons + 1);
+    }
+    
+    if (startPage > 1) {
+        html += `<button onclick="changePage(1)" class="pagination-btn">1</button>`;
+        if (startPage > 2) html += '<span class="pagination-dots">...</span>';
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        html += `<button onclick="changePage(${i})" class="pagination-btn ${i === currentPage ? 'active' : ''}">${i}</button>`;
+    }
+    
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) html += '<span class="pagination-dots">...</span>';
+        html += `<button onclick="changePage(${totalPages})" class="pagination-btn">${totalPages}</button>`;
+    }
+    
+    // Next button
+    if (currentPage < totalPages) {
+        html += `<button onclick="changePage(${currentPage + 1})" class="pagination-btn">Next →</button>`;
+    }
+    
+    html += '</div></div>';
+    paginationHTML.innerHTML = html;
+}
+
+function changePage(page) {
+    currentPage = page;
+    renderMods();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 /* ---------- Search ---------- */
 function searchMods() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    document.querySelectorAll('.mod-card').forEach(c => 
-        c.style.display = c.textContent.toLowerCase().includes(q) ? 'block' : 'none'
-    );
+    currentSearchQuery = document.getElementById('searchInput').value;
+    currentPage = 1;
+    renderMods();
+}
+
+/* ---------- Mod Count ---------- */
+function updateModCount() {
+    const filtered = getFilteredMods();
+    const countElement = document.getElementById('modCount');
+    if (countElement) {
+        countElement.textContent = `${filtered.length} mod${filtered.length !== 1 ? 's' : ''} available`;
+    }
 }
 
 /* ---------- Mod Detail ---------- */
@@ -173,7 +309,7 @@ function openModDetail(id) {
     mod.screenshots.forEach(src => {
         const div = document.createElement('div');
         div.className = 'screenshot';
-        div.innerHTML = `<img src="${src}" alt="Screenshot" onclick="openModal('${src}')">`;
+        div.innerHTML = `<img src="${src}" alt="Screenshot" onclick="openModal('${src}')" loading="lazy">`;
         ss.appendChild(div);
     });
 
@@ -222,7 +358,7 @@ function checkPassword() {
         document.getElementById('loginForm').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
     } else {
-        alert('Incorrect password!');
+        alert('❌ Incorrect password!');
     }
 }
 
@@ -235,7 +371,12 @@ document.getElementById('addModForm').addEventListener('submit', e => {
     e.preventDefault();
     
     if (!isAdminLoggedIn) {
-        alert('Please login first!');
+        alert('🔒 Please login first!');
+        return;
+    }
+    
+    if (mods.length >= 5000) {
+        alert('⚠️ Maximum limit reached! You can only store up to 5,000 mods.');
         return;
     }
     
@@ -259,11 +400,11 @@ document.getElementById('addModForm').addEventListener('submit', e => {
     };
     
     mods.push(newMod);
-    saveMods(); // Save to localStorage
+    saveMods();
     renderMods();
     updateExistingModsList();
     e.target.reset();
-    alert('Mod added and saved successfully!');
+    alert(`✅ Mod added successfully! Total mods: ${mods.length}/5000`);
 });
 
 function updateExistingModsList() {
@@ -280,14 +421,15 @@ function updateExistingModsList() {
 
 function deleteMod(i) {
     if (!isAdminLoggedIn) {
-        alert('Please login first!');
+        alert('🔒 Please login first!');
         return;
     }
-    if (confirm('Delete this mod?')) {
+    if (confirm(`❌ Delete "${mods[i].name}"?`)) {
         mods.splice(i, 1);
-        saveMods(); // Save to localStorage
+        saveMods();
         renderMods();
         updateExistingModsList();
+        alert(`✅ Mod deleted! Total mods: ${mods.length}/5000`);
     }
 }
 
