@@ -115,18 +115,27 @@ header {
 .search-bar button:hover {background:#00E6E2}
 
 /* tabs – centered, wrap nicely */
+.tabs-frame {
+    width: 100%;
+    max-width: 500px;       /* controls how wide the buttons area can be */
+    margin: 0 auto 2rem;    /* centers the frame horizontally */
+    overflow-x: auto;       /* scroll if buttons overflow */
+}
+
 .tabs {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /* align from left */
     align-items: center;
     gap: .5rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap; /* keep wrap for small screens */
+    flex-wrap: nowrap;           /* keeps them in one row */
+    padding: .5rem;
 }
 
 .tab-btn {
-    display: inline-flex;           /* ensures buttons shrink correctly */
-    white-space: nowrap;            /* prevents text from wrapping */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
     background: rgba(255,255,255,.1);
     color: var(--light);
     border: none;
@@ -141,10 +150,11 @@ header {
 .tab-btn.active,
 .tab-btn:hover {
     background: var(--primary);
-    color:#000;
+    color: #000;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,235,255,.4);
 }
+
 
 /* -------------------------------------------------
    3. RESPONSIVE – mobile tweaks
@@ -326,6 +336,7 @@ footer{background:rgba(18,18,18,.95);padding:3rem 0 1.5rem;margin-top:4rem}
             width:48px;height:48px;border-radius:50%;display:flex;align-items:center;
             justify-content:center;cursor:pointer;z-index:1500;transition:var(--transition)}
 .dark-toggle:hover{background:#00E6E2}
+
 
 
 
