@@ -770,4 +770,39 @@ footer {
     transition: var(--transition);
 }
 
-.close-modal:hover
+.close-modal:hover {
+    background: #ff6666;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .nav-links {
+        margin-top: 1rem;
+    }
+    
+    .nav-links li {
+        margin: 0 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .detail-header {
+        flex-direction: column;
+    }
+    
+    .detail-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
