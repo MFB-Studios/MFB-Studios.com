@@ -4,7 +4,8 @@
 const ADMIN_PASSWORD = 'mfbstudios2025';
 let isAdminLoggedIn = false;
 
-let mods = [
+// Default mods (fallback if localStorage is empty)
+const defaultMods = [
     {id:'glowing-ores-addon',name:'Raiyons Glowing Ores Addon',platform:'bedrock',mcVersion:'1.21',modVersion:'v1.0',
      shortDesc:'Makes ores glow in the dark for easier mining in survival worlds.',
      fullDesc:`<p>This addon makes ores luminous, emitting light like torches or light blocks while intact. Light turns off when the ore is punched or broken. Download both RP and BP for full functionality: RP - https://link-hub.net/1207847/glowing-ores-121-mcpe-rp, BP - https://link-center.net/1207847/glowing-ores-121-mcpe-bp.</p>
@@ -55,7 +56,44 @@ let mods = [
      javaLink:null,bedrockLink:'https://linkpays.in/8lEygs08'}
 ];
 
+// Load mods from localStorage or use defaults
+let mods = loadMods();
+
 let currentFilter = 'all';
+
+/* ---------- LocalStorage Functions ---------- */
+function saveMods() {
+    try {
+        localStorage.setItem('mfbMods', JSON.stringify(mods));
+        console.log('Mods saved to localStorage');
+    } catch (error) {
+        console.error('Error saving mods:', error);
+    }
+}
+
+function loadMods() {
+    try {
+        const saved = localStorage.getItem('mfbMods');
+        if (saved) {
+            console.log('Loaded mods from localStorage');
+            return JSON.parse(saved);
+        }
+    } catch (error) {
+        console.error('Error loading mods:', error);
+    }
+    console.log('Using default mods');
+    return [...defaultMods];
+}
+
+function resetMods() {
+    if (confirm('Reset all mods to default? This will delete all custom mods!')) {
+        mods = [...defaultMods];
+        saveMods();
+        renderMods();
+        updateExistingModsList();
+        alert('Mods reset to default!');
+    }
+}
 
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -221,10 +259,11 @@ document.getElementById('addModForm').addEventListener('submit', e => {
     };
     
     mods.push(newMod);
+    saveMods(); // Save to localStorage
     renderMods();
     updateExistingModsList();
     e.target.reset();
-    alert('Mod added successfully!');
+    alert('Mod added and saved successfully!');
 });
 
 function updateExistingModsList() {
@@ -246,6 +285,7 @@ function deleteMod(i) {
     }
     if (confirm('Delete this mod?')) {
         mods.splice(i, 1);
+        saveMods(); // Save to localStorage
         renderMods();
         updateExistingModsList();
     }
