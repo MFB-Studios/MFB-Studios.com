@@ -271,6 +271,12 @@ function searchMods() {
     renderMods();
 }
 
+function focusSearch() {
+    document.getElementById('searchInput').focus();
+    // Optional: Scroll to search bar
+    document.querySelector('.search-bar').scrollIntoView({ behavior: 'smooth' });
+}
+
 /* ---------- Mod Count ---------- */
 function updateModCount() {
     const filtered = getFilteredMods();
@@ -450,3 +456,4 @@ document.addEventListener('keydown', e => {
         if (document.getElementById('modDetail').style.display === 'block') closeModDetail();
     }
 });
+
