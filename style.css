@@ -36,7 +36,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.2rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -44,19 +44,17 @@ body {
     background: #0a0a0a;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-    flex-wrap: nowrap; /* ensures everything stays on one line */
-    gap: 1rem;
 }
 
-/* --- Logo --- */
+/* --- Logo on Left --- */
 .logo {
     display: flex;
     align-items: center;
-    font-size: 1.3rem; /* slightly smaller */
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
     text-decoration: none;
-    white-space: nowrap; /* prevents breaking */
+    white-space: nowrap;
 }
 
 .logo i {
@@ -64,13 +62,20 @@ body {
     font-size: 1.5rem;
 }
 
+/* --- Container for Right Side --- */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem; /* space between links and button */
+}
+
 /* --- Navigation Links --- */
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 1.2rem; /* reduced gap */
-    margin: 0 auto;
-    flex-wrap: nowrap; /* keeps links inline */
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
@@ -79,7 +84,7 @@ body {
     font-weight: 500;
     transition: var(--transition);
     position: relative;
-    font-size: 0.9rem; /* smaller text */
+    font-size: 0.9rem;
     white-space: nowrap;
 }
 
@@ -107,16 +112,15 @@ body {
     background: var(--primary);
     color: #000;
     border: none;
-    padding: 0.3rem 0.8rem; /* smaller padding */
+    padding: 0.35rem 0.9rem;
     border-radius: 25px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     text-decoration: none;
     display: inline-block;
-    font-size: 0.85rem; /* smaller size */
-    white-space: nowrap; /* prevents wrapping */
-    margin-left: auto;
+    font-size: 0.85rem;
+    white-space: nowrap;
 }
 
 .admin-btn:hover {
@@ -124,6 +128,12 @@ body {
     transform: translateY(-2px);
     color: #000;
 }
+
+/* --- Space below fixed navbar --- */
+body {
+    padding-top: 60px;
+}
+
 
 /* --- Space below fixed navbar --- */
 body {
@@ -889,6 +899,7 @@ footer {
 }
     
 }
+
 
 
 
