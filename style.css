@@ -32,11 +32,7 @@ body {
 }
 
 /* Header */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1.2rem;
+header {
     position: fixed;
     top: 0;
     left: 0;
@@ -46,7 +42,23 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
-/* --- Logo on Left --- */
+/* Navbar layout */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1.2rem;
+    flex-wrap: nowrap;
+}
+
+/* Container fix for full width */
+header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Logo (Left) */
 .logo {
     display: flex;
     align-items: center;
@@ -62,22 +74,17 @@ body {
     font-size: 1.5rem;
 }
 
-/* --- Container for Right Side --- */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem; /* space between links and button */
-}
-
-/* --- Navigation Links --- */
+/* Right side (Links + Admin) */
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
     gap: 1.2rem;
     margin: 0;
     padding: 0;
 }
 
+/* Links */
 .nav-links a {
     color: var(--light);
     text-decoration: none;
@@ -88,7 +95,8 @@ body {
     white-space: nowrap;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--primary);
 }
 
@@ -103,11 +111,12 @@ body {
     transition: var(--transition);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     width: 100%;
 }
 
-/* --- Admin Button --- */
+/* Admin Button (Stays on Right) */
 .admin-btn {
     background: var(--primary);
     color: #000;
@@ -121,6 +130,7 @@ body {
     display: inline-block;
     font-size: 0.85rem;
     white-space: nowrap;
+    margin-left: 1.2rem; /* space between links and button */
 }
 
 .admin-btn:hover {
@@ -128,6 +138,12 @@ body {
     transform: translateY(-2px);
     color: #000;
 }
+
+/* Body offset so content isn't hidden behind fixed header */
+body {
+    padding-top: 60px;
+}
+
 
 /* --- Space below fixed navbar --- */
 body {
@@ -899,6 +915,7 @@ footer {
 }
     
 }
+
 
 
 
